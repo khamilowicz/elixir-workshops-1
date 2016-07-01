@@ -8,6 +8,7 @@ defmodule Tepsa.CityTest do
     test "returns city name with prefix" do
       assert {"Krakow", 99} == Tepsa.City.register("Krakow")
       assert {"Warszawa", 98} == Tepsa.City.register("Warszawa")
+      assert {"Krakow", 99} == Tepsa.City.register("Krakow")
     end
   end
 

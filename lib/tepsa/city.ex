@@ -24,12 +24,15 @@ defmodule Tepsa.City do
   {"Krakow", 99}
   """
   def register(name) do
-    prefix = Agent.get(__MODULE__, fn(s) ->
-      elem(s, 0)
-    end)
-    :ok = Agent.update(__MODULE__, fn({prefix, cities}) ->
-      {prefix - 1, cities}
-    end)
-  {name, prefix}
+    prefix = Agent.get_and_update(__MODULE__, &register_or_return_prefix(&1, name))
+    {name, prefix}
+  end
+
+  def register_or_return_prefix({prefix, cities} = state, name) do
+    if cities[name] do
+      {cities[name], state}
+    else
+      {prefix, {prefix - 1, Map.put(cities, name, prefix)}}
+    end
   end
 end
