@@ -22,13 +22,14 @@ defmodule Tepsa.City do
   iex>  Tepsa.City.init
   iex>  Tepsa.City.register("Krakow")
   {"Krakow", 99}
-  iex>  Tepsa.City.register("Warszawa")
-  {"Krakow", 98}
   """
   def register(name) do
-    prefix = Agent.get(__MODULE__, fn(s) -> 
-     elem(s, 0)
+    prefix = Agent.get(__MODULE__, fn(s) ->
+      elem(s, 0)
     end)
-    {name, prefix}
-    end
+    :ok = Agent.update(__MODULE__, fn({prefix, cities}) ->
+      {prefix - 1, cities}
+    end)
+  {name, prefix}
   end
+end
