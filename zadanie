@@ -1,0 +1,15 @@
+Apka
+
+Centrala telefoniczna
+
+Miasto jest rejestrowane i przydzielony jest mu prefix
+
+Rejestruję numer z miastem, centrala zwraca numer z prefixem
+
+Tworzę telefon, wybieram number i wysyłam wiadomość.
+
+Centrala znajduje telefony i je łączy.
+Jak wysyłasz wiadomośc to, sprawdza czy jest wolny, jak tak pojawia sie na drugim.
+Jak nie, to zwraca wiadomosc ze zajety.
+
+Jak centrala miejska padnie, to wiadomosci przestaja przechodzic

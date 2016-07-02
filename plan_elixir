@@ -1,0 +1,64 @@
+0. Tooling
+  - mix
+    - new
+   - iex
+     - v
+     - wyjście
+     - recompile
+1. Syntax
+  - typy
+    - string
+      - konkatelnacja
+    - atomy
+    - tuple
+      - elem, put_elem
+    - listy
+      - konkatencacja
+      - prepending
+    - mapy
+      - get, put, update
+    - binarki
+  - kontrola
+    - case i if
+    - petle, rekurencja
+    - pipe
+  - modules
+    - atomy
+    - structy
+    - @stale
+  - funkcje publiczne, prywatne, lambdy, &
+  - arity
+  - pattern matching
+    - funkcje
+    - case
+    - pin
+  - guardy
+  - import
+  - alias
+  - require, use (wspomniec)
+
+2 Procesy
+ - obiekty
+ - spawn
+ - self
+ - pid
+ - send/receive
+ - flush
+ - loop
+ - exit
+ - monitory
+ - linki
+ - trap exit
+ - observer
+
+4. Elixirowe rzeczy
+  - Agent
+  - Task
+
+3. OTP
+  - GenServer
+    - proces
+    - call, cast, send
+  - name register
+  - Supervisor
+
