@@ -1,6 +1,6 @@
 defmodule Tepsa.City do
 
-  @docmodule """
+  @moduledoc """
   This module implements city register
   """
 
@@ -17,22 +17,43 @@ defmodule Tepsa.City do
   end
 
   @doc """
+  Returns prefix for given city of :error
+  """
+  def prefix(city) do
+    case Agent.get(__MODULE__, fn({_, cities}) -> cities[city] end) do
+      prefix when is_bitstring(prefix) -> prefix
+      _other -> :error
+    end
+  end
+
+  def city_exchange(prefix) do
+    city =
+      Agent.get(__MODULE__, fn({_, cities}) -> 
+       {city, _p} = Enum.find(cities, fn({city, c_prefix}) -> prefix == c_prefix end)
+       city
+      end)
+    Tepsa.CityExchange.city_exchange_process_id(city)
+  end
+
+  @doc """
   Registers given city, returns tuple of city name and city prefix
 
   iex>  Tepsa.City.init
   iex>  Tepsa.City.register("Krakow")
-  {"Krakow", 99}
+  {"Krakow", "99"}
   """
   def register(name) do
-    prefix = Agent.get_and_update(__MODULE__, &register_or_return_prefix(&1, name))
-    {name, prefix}
+    Agent.get_and_update(__MODULE__, __MODULE__, :register_or_return_prefix, [name])
   end
 
+  def register_or_return_prefix({-1, _cities} = state, _name) do
+    {{:error, :max_city_number}, state}
+  end
   def register_or_return_prefix({prefix, cities} = state, name) do
     if cities[name] do
-      {cities[name], state}
+      {{name, cities[name]}, state}
     else
-      {prefix, {prefix - 1, Map.put(cities, name, prefix)}}
+      {{name, to_string(prefix)}, {prefix - 1, Map.put(cities, name, to_string(prefix))}}
     end
   end
 end
